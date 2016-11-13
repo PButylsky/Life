@@ -144,6 +144,8 @@ void CZ3View::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 	int value = nChar;
 	InvalidateRect(nullptr);
 
+	if(value < 97) value += ' ';
+
 	switch (value) {
 	case (32):	// Space - next step
 		value = 0;
@@ -168,11 +170,6 @@ void CZ3View::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 		value = 0;
 		break;
 
-	case(111):	//o - save to file life.dat
-		value = 0;
-//		ReadFig();
-		break;
-
 	case(114):	//r - read file life.dat
 		Clean();
 		ReadFig();
@@ -183,7 +180,6 @@ void CZ3View::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 	case(115):	// s - save resukt
 		value = 0;
 		SaveFig();
-//		InvalidateRect(nullptr);
 		break;
 	}
 }

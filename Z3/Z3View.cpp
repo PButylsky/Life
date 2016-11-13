@@ -40,7 +40,7 @@ int X_DOT = 0, Y_DOT = 0;
 CZ3View::CZ3View()
 {
 	// TODO: add construction code here
-
+	Clean();
 
 }
 

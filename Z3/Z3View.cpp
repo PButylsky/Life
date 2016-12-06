@@ -70,6 +70,8 @@ void CZ3View::OnDraw(CDC* pDC)
 
 	int i, j;
 
+	pDC->Rectangle(SH, SH, ARSX*(STEP+1) + SH, ARSY*(STEP+1) + SH);
+
 	CBrush aBrush(BS_SOLID, RGB(0, 0, 0));
 	CBrush* pOldBrush = pDC->SelectObject(&aBrush);	//¬ыбрать кисть в контекст устройства
 	pOldBrush = (CBrush*)pDC->SelectStockObject(BLACK_BRUSH);
@@ -80,15 +82,14 @@ void CZ3View::OnDraw(CDC* pDC)
 		{
 			if (ARR[0][j][i] == 1)
 			{
-				X_NUM = i*STEP;
-				Y_NUM = j*STEP;
+				X_NUM = i*STEP + 2*SH;
+				Y_NUM = j*STEP + 2*SH;
 				CRect aRect((X_NUM - RAD), (Y_NUM - RAD), (X_NUM + RAD), (Y_NUM + RAD));
 				pDC->Ellipse(aRect);
 			}
 		}
 	}
 }
-
 
 // CZ3View printing
 
@@ -147,7 +148,7 @@ void CZ3View::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if(value < 97) value += ' ';
 
 	switch (value) {
-	case (32):	// Space - next step
+	case (64):	// Space - next step
 		value = 0;
 		CalcFig();
 		InvalidateRect(nullptr);
@@ -287,8 +288,8 @@ void CZ3View::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CView::OnLButtonDown(nFlags, point);
 
-	X_DOT = point.x;
-	Y_DOT = point.y;
+	X_DOT = point.x - 2*SH - RAD;
+	Y_DOT = point.y - 2*SH - RAD;
 
 	delta = X_DOT % STEP;
 	if (delta < 3)

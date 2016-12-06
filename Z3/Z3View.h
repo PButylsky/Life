@@ -18,9 +18,10 @@ public:
 
 public:
 #define ARSX 160
-#define ARSY 120
+#define ARSY 85
 #define STEP 10
 #define RAD 4
+#define SH 5
 
 int ARR[2][ARSY][ARSX];
 
@@ -30,6 +31,7 @@ public:
 // Overrides
 public:
 	virtual void OnDraw(CDC* pDC); // overridden to draw this view
+//	virtual void OnDrawBorder(CDC* pDC);
 
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
@@ -61,7 +63,6 @@ public:
 	afx_msg void SaveFig();
 	afx_msg void Clean();
 	afx_msg void ReadFig();
-//	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 

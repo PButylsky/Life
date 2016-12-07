@@ -236,7 +236,7 @@ void CZ3View::CalcFig()
 {
 	int i, j, SIGN = 0;
 
-	for (j = 1; j < ARSY-1; j++)
+	for (j = 1; j < ARSY-1; j++)	// Обработка середины поля
 	{
 		for (i = 1; i < ARSX-1; i++)
 		{
@@ -257,6 +257,17 @@ void CZ3View::CalcFig()
 			SIGN = 0;
 		}
 	}
+	j=0; i=0; // Обработка углов
+	if (ARR[][]) SIGN++;				//	ARS
+	if (ARR[0][ARSY][0] == 1) SIGN++;	//	ARSY,ARSX	ARSY,0	ARSY,1
+	if (ARR[0][ARSY][1] == 1) SIGN++;	//	ARSX.0		0,0		0,1
+	if (ARR[0][0][1] == 1) SIGN++;		//	ARSX,1		1,0		1,1
+	if (ARR[0][1][0] == 1) SIGN++;
+	if (ARR[0][1][0] == 1) SIGN++;
+	if (ARR[0][1][1] == 1) SIGN++;
+	if (ARR[0][0][ARSX] == 1) SIGN++;
+	if (ARR[0][1][ARSX] == 1) SIGN++;
+
  	for (j = 0; j < ARSY; j++)
 	{
 		for (i = 0; i < ARSX; i++)

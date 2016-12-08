@@ -76,9 +76,9 @@ void CZ3View::OnDraw(CDC* pDC)
 	CBrush* pOldBrush = pDC->SelectObject(&aBrush);	//¬ыбрать кисть в контекст устройства
 	pOldBrush = (CBrush*)pDC->SelectStockObject(BLACK_BRUSH);
 
-	for (j = 0; j < ARSY; j++)
+	for (j = 0; j <= ARSY; j++)
 	{
-		for (i = 0; i < ARSX; i++)
+		for (i = 0; i <= ARSX; i++)
 		{
 			if (ARR[0][j][i] == 1)
 			{
@@ -257,16 +257,148 @@ void CZ3View::CalcFig()
 			SIGN = 0;
 		}
 	}
-	j=0; i=0; // ќбработка углов
-	if (ARR[][]) SIGN++;				//	ARS
+
+	j = 0; i = 0; // ќбработка углов
+	if (ARR[0][ARSY][ARSX] == 1) SIGN++;//	0.0
 	if (ARR[0][ARSY][0] == 1) SIGN++;	//	ARSY,ARSX	ARSY,0	ARSY,1
-	if (ARR[0][ARSY][1] == 1) SIGN++;	//	ARSX.0		0,0		0,1
-	if (ARR[0][0][1] == 1) SIGN++;		//	ARSX,1		1,0		1,1
-	if (ARR[0][1][0] == 1) SIGN++;
+	if (ARR[0][ARSY][1] == 1) SIGN++;	//	0,ARSX		0,0		0,1
+	if (ARR[0][0][ARSX] == 1) SIGN++;	//	1.ARSX		1,0		1,1
+	if (ARR[0][0][1] == 1) SIGN++;
+	if (ARR[0][1][ARSX] == 1) SIGN++;
 	if (ARR[0][1][0] == 1) SIGN++;
 	if (ARR[0][1][1] == 1) SIGN++;
-	if (ARR[0][0][ARSX] == 1) SIGN++;
+
+	if (SIGN < 2) ARR[1][j][i] = 0;
+	if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
+	if (SIGN > 3) ARR[1][j][i] = 0;
+	if (SIGN == 3) ARR[1][j][i] = 1;
+	SIGN = 0;
+
+	j = 0; i = ARSX;
+	if (ARR[0][ARSY][ARSX-1] == 1) SIGN++;	//	0,ARSX
+	if (ARR[0][ARSY][ARSX] == 1) SIGN++;	//	ARSY,ARSX-1	ARSY,ARSX	ARSY,0
+	if (ARR[0][ARSY][0] == 1) SIGN++;		//	0,ARSX-1	0,ARSX		0,0
+	if (ARR[0][0][ARSX-1] == 1) SIGN++;		//	1.ARSX-1	1,ARSX		1,0
+	if (ARR[0][0][0] == 1) SIGN++;
+	if (ARR[0][1][ARSX-1] == 1) SIGN++;
 	if (ARR[0][1][ARSX] == 1) SIGN++;
+	if (ARR[0][1][0] == 1) SIGN++;
+
+	if (SIGN < 2) ARR[1][j][i] = 0;
+	if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
+	if (SIGN > 3) ARR[1][j][i] = 0;
+	if (SIGN == 3) ARR[1][j][i] = 1;
+	SIGN = 0;
+
+	j = ARSY; i = 0;
+	if (ARR[0][ARSY-1][ARSX] == 1) SIGN++;	//	ARSY,0
+	if (ARR[0][ARSX-1][0] == 1) SIGN++;		//	ARSY-1,ARSX		ARSY-1,0	ARSY-1,1
+	if (ARR[0][ARSY-1][1] == 1) SIGN++;		//	ARSY,ARSX		ARSY,0		ARSY,1
+	if (ARR[0][ARSY][ARSX] == 1) SIGN++;	//	0.ARSX			0,0			0,1
+	if (ARR[0][ARSY][1] == 1) SIGN++;
+	if (ARR[0][0][ARSX] == 1) SIGN++;
+	if (ARR[0][0][0] == 1) SIGN++;
+	if (ARR[0][0][1] == 1) SIGN++;
+
+	if (SIGN < 2) ARR[1][j][i] = 0;
+	if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
+	if (SIGN > 3) ARR[1][j][i] = 0;
+	if (SIGN == 3) ARR[1][j][i] = 1;
+	SIGN = 0;
+
+	j = ARSY; i = ARSX;
+	if (ARR[0][ARSY-1][ARSX-1] == 1) SIGN++;	//	ARSY,ARSX
+	if (ARR[0][ARSY-1][ARSX] == 1) SIGN++;		//	ARSV-1,ARSX-1	ARSY-1,ARSX		ARSY-1,0
+	if (ARR[0][ARSY-1][0] == 1) SIGN++;			//	ARSY,ARSX-1		ARSY,ARSX		ARSY,0
+	if (ARR[0][ARSY][ARSX-1] == 1) SIGN++;		//	0.ARSX-1		1,ARSX			0,0
+	if (ARR[0][ARSY][0] == 1) SIGN++;
+	if (ARR[0][0][ARSX-1] == 1) SIGN++;
+	if (ARR[0][1][ARSX] == 1) SIGN++;
+	if (ARR[0][9][0] == 1) SIGN++;
+
+	if (SIGN < 2) ARR[1][j][i] = 0;
+	if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
+	if (SIGN > 3) ARR[1][j][i] = 0;
+	if (SIGN == 3) ARR[1][j][i] = 1;
+	SIGN = 0;
+
+	// Ћбработка граничных строк
+
+	for (j = 1; j < ARSY; j++)	// лева€ вертикаль
+	{
+		i = 0;
+		if (ARR[0][j-1][ARSX] == 1) SIGN++;
+		if (ARR[0][j-1][1] == 1) SIGN++;
+		if (ARR[0][j-1][i+1] == 1) SIGN++;
+		if (ARR[0][j][ARSX] == 1) SIGN++;
+		if (ARR[0][j][i+1] == 1) SIGN++;
+		if (ARR[0][j+1][ARSX] == 1) SIGN++;
+		if (ARR[0][j+1][i] == 1) SIGN++;
+		if (ARR[0][j+1][i+1] == 1) SIGN++;
+
+		if (SIGN < 2) ARR[1][j][i] = 0;
+		if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
+		if (SIGN > 3) ARR[1][j][i] = 0;
+		if (SIGN == 3) ARR[1][j][i] = 1;
+		SIGN = 0;
+	}
+
+	for (j = 1; j < ARSY; j++)	// првва€ вертикаль
+	{
+		i = ARSX;
+		if (ARR[0][j - 1][i-1] == 1) SIGN++;
+		if (ARR[0][j - 1][i] == 1) SIGN++;
+		if (ARR[0][j - 1][0] == 1) SIGN++;
+		if (ARR[0][j][i-1] == 1) SIGN++;
+		if (ARR[0][j][0] == 1) SIGN++;
+		if (ARR[0][j+1][i-1] == 1) SIGN++;
+		if (ARR[0][j+1][i] == 1) SIGN++;
+		if (ARR[0][j+1][i+1] == 1) SIGN++;
+
+		if (SIGN < 2) ARR[1][j][i] = 0;
+		if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
+		if (SIGN > 3) ARR[1][j][i] = 0;
+		if (SIGN == 3) ARR[1][j][i] = 1;
+		SIGN = 0;
+	}
+
+	for (i = 0; i < ARSX; i++)	// верхн€€ горизонталь
+	{
+		j = 0;
+		if (ARR[0][ARSY][i - 1] == 1) SIGN++;
+		if (ARR[0][ARSY][i] == 1) SIGN++;
+		if (ARR[0][ARSY][i+1] == 1) SIGN++;
+		if (ARR[0][j][i - 1] == 1) SIGN++;
+		if (ARR[0][j][i+1] == 1) SIGN++;
+		if (ARR[0][j + 1][i - 1] == 1) SIGN++;
+		if (ARR[0][j + 1][i] == 1) SIGN++;
+		if (ARR[0][j + 1][i + 1] == 1) SIGN++;
+
+		if (SIGN < 2) ARR[1][j][i] = 0;
+		if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
+		if (SIGN > 3) ARR[1][j][i] = 0;
+		if (SIGN == 3) ARR[1][j][i] = 1;
+		SIGN = 0;
+	}
+
+	for (i = 0; i < ARSX; i++)	// нижн€€ горизонталь
+	{
+		j = ARSY;
+		if (ARR[0][j-1][i - 1] == 1) SIGN++;
+		if (ARR[0][j-1][i] == 1) SIGN++;
+		if (ARR[0][j-1][i + 1] == 1) SIGN++;
+		if (ARR[0][j][i - 1] == 1) SIGN++;
+		if (ARR[0][j][i + 1] == 1) SIGN++;
+		if (ARR[0][0][i - 1] == 1) SIGN++;
+		if (ARR[0][0][i] == 1) SIGN++;
+		if (ARR[0][0][i + 1] == 1) SIGN++;
+
+		if (SIGN < 2) ARR[1][j][i] = 0;
+		if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
+		if (SIGN > 3) ARR[1][j][i] = 0;
+		if (SIGN == 3) ARR[1][j][i] = 1;
+		SIGN = 0;
+	}
 
  	for (j = 0; j < ARSY; j++)
 	{

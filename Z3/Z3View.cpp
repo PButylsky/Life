@@ -70,15 +70,15 @@ void CZ3View::OnDraw(CDC* pDC)
 
 	int i, j;
 
-	pDC->Rectangle(SH, SH, ARSX*(STEP+1) + SH, ARSY*(STEP+1) + SH);
+	pDC->Rectangle(SH, SH, ARSX*STEP + 2*SH, ARSY*STEP + 2*SH);
 
 	CBrush aBrush(BS_SOLID, RGB(0, 0, 0));
 	CBrush* pOldBrush = pDC->SelectObject(&aBrush);	//¬ыбрать кисть в контекст устройства
 	pOldBrush = (CBrush*)pDC->SelectStockObject(BLACK_BRUSH);
 
-	for (j = 0; j <= ARSY; j++)
+	for (j = 0; j < ARSY; j++)
 	{
-		for (i = 0; i <= ARSX; i++)
+		for (i = 0; i < ARSX; i++)
 		{
 			if (ARR[0][j][i] == 1)
 			{
@@ -195,6 +195,7 @@ void CZ3View::Clean()
 		for(int i = 0; i < ARSX; i++)
 		{
 			ARR[0][j][i] = 0;
+			ARR[1][j][i] = 0;
 		}
 	}
 }
@@ -258,7 +259,7 @@ void CZ3View::CalcFig()
 		}
 	}
 
-	j = 0; i = 0; // ќбработка углов
+/*	j = 0; i = 0; // ќбработка углов
 	if (ARR[0][ARSY][ARSX] == 1) SIGN++;//	0.0
 	if (ARR[0][ARSY][0] == 1) SIGN++;	//	ARSY,ARSX	ARSY,0	ARSY,1
 	if (ARR[0][ARSY][1] == 1) SIGN++;	//	0,ARSX		0,0		0,1
@@ -320,11 +321,11 @@ void CZ3View::CalcFig()
 	if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
 	if (SIGN > 3) ARR[1][j][i] = 0;
 	if (SIGN == 3) ARR[1][j][i] = 1;
-	SIGN = 0;
+	SIGN = 0;*/
 
-	// Ћбработка граничных строк
+	// ќбработка граничных строк
 
-	for (j = 1; j < ARSY; j++)	// лева€ вертикаль
+/*	for (j = 1; j < ARSY-1; j++)	// лева€ вертикаль
 	{
 		i = 0;
 		if (ARR[0][j-1][ARSX] == 1) SIGN++;
@@ -341,9 +342,9 @@ void CZ3View::CalcFig()
 		if (SIGN > 3) ARR[1][j][i] = 0;
 		if (SIGN == 3) ARR[1][j][i] = 1;
 		SIGN = 0;
-	}
+	}*/
 
-	for (j = 1; j < ARSY; j++)	// првва€ вертикаль
+/*	for (j = 1; j < ARSY-1; j++)	// првва€ вертикаль
 	{
 		i = ARSX;
 		if (ARR[0][j - 1][i-1] == 1) SIGN++;
@@ -362,7 +363,7 @@ void CZ3View::CalcFig()
 		SIGN = 0;
 	}
 
-	for (i = 0; i < ARSX; i++)	// верхн€€ горизонталь
+	for (i = 1; i < ARSX-1; i++)	// верхн€€ горизонталь
 	{
 		j = 0;
 		if (ARR[0][ARSY][i - 1] == 1) SIGN++;
@@ -381,7 +382,7 @@ void CZ3View::CalcFig()
 		SIGN = 0;
 	}
 
-	for (i = 0; i < ARSX; i++)	// нижн€€ горизонталь
+	for (i = 1; i < ARSX-1; i++)	// нижн€€ горизонталь
 	{
 		j = ARSY;
 		if (ARR[0][j-1][i - 1] == 1) SIGN++;
@@ -398,7 +399,7 @@ void CZ3View::CalcFig()
 		if (SIGN > 3) ARR[1][j][i] = 0;
 		if (SIGN == 3) ARR[1][j][i] = 1;
 		SIGN = 0;
-	}
+	}*/
 
  	for (j = 0; j < ARSY; j++)
 	{
@@ -431,8 +432,15 @@ void CZ3View::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CView::OnLButtonDown(nFlags, point);
 
-	X_DOT = point.x - 2*SH - RAD;
-	Y_DOT = point.y - 2*SH - RAD;
+	X_DOT = point.x - 2*SH;
+	Y_DOT = point.y - 2*SH;
+
+	if (X_DOT < 0) X_DOT = 0;
+	if (X_DOT > (ARSX-1)*STEP) X_DOT = (ARSX-1)*STEP - SH;
+	if (Y_DOT < 0) Y_DOT = 0;
+	if (Y_DOT > (ARSY-1)*STEP) Y_DOT = (ARSY-1)*STEP - SH;
+
+//	if ((point.x/STEP > ARSX) || (point.y/STEP > ARSY)) return;
 
 	delta = X_DOT % STEP;
 	if (delta < 3)

@@ -17,8 +17,8 @@ public:
 	CZ3Doc* GetDocument() const;
 
 public:
-#define ARSX 5//160
-#define ARSY 3//85
+#define ARSX 70//160
+#define ARSY 50//85
 #define STEP 10
 #define RAD 4
 #define SH 5

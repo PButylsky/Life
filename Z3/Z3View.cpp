@@ -259,13 +259,13 @@ void CZ3View::CalcFig()
 		}
 	}
 
-/*	j = 0; i = 0; // ќбработка углов
-	if (ARR[0][ARSY][ARSX] == 1) SIGN++;//	0.0
-	if (ARR[0][ARSY][0] == 1) SIGN++;	//	ARSY,ARSX	ARSY,0	ARSY,1
-	if (ARR[0][ARSY][1] == 1) SIGN++;	//	0,ARSX		0,0		0,1
-	if (ARR[0][0][ARSX] == 1) SIGN++;	//	1.ARSX		1,0		1,1
+	j = 0; i = 0; // ќбработка углов
+	if (ARR[0][ARSY-1][ARSX-1] == 1) SIGN++;	//	0.0
+	if (ARR[0][ARSY-1][0] == 1) SIGN++;			//	ARSY-1,ARSX-1	ARSY-1,0	ARSY-1,1
+	if (ARR[0][ARSY-1][1] == 1) SIGN++;			//	0,ARSX-1		0,0			0,1
+	if (ARR[0][0][ARSX-1] == 1) SIGN++;			//	1.ARSX-1		1,0			1,1
 	if (ARR[0][0][1] == 1) SIGN++;
-	if (ARR[0][1][ARSX] == 1) SIGN++;
+	if (ARR[0][1][ARSX-1] == 1) SIGN++;
 	if (ARR[0][1][0] == 1) SIGN++;
 	if (ARR[0][1][1] == 1) SIGN++;
 
@@ -275,14 +275,14 @@ void CZ3View::CalcFig()
 	if (SIGN == 3) ARR[1][j][i] = 1;
 	SIGN = 0;
 
-	j = 0; i = ARSX;
-	if (ARR[0][ARSY][ARSX-1] == 1) SIGN++;	//	0,ARSX
-	if (ARR[0][ARSY][ARSX] == 1) SIGN++;	//	ARSY,ARSX-1	ARSY,ARSX	ARSY,0
-	if (ARR[0][ARSY][0] == 1) SIGN++;		//	0,ARSX-1	0,ARSX		0,0
-	if (ARR[0][0][ARSX-1] == 1) SIGN++;		//	1.ARSX-1	1,ARSX		1,0
+	j = 0; i = ARSX-1;
+	if (ARR[0][ARSY-1][ARSX-2] == 1) SIGN++;	//	0,ARSX-1
+	if (ARR[0][ARSY-1][ARSX-1] == 1) SIGN++;	//	ARSY-1,ARSX-2	ARSY-1,ARSX-1	ARSY-1,0
+	if (ARR[0][ARSY-1][0] == 1) SIGN++;			//	0,ARSX-2		0,ARSX-1		0,0
+	if (ARR[0][0][ARSX-2] == 1) SIGN++;			//	1.ARSX-2		1,ARSX-1		1,0
 	if (ARR[0][0][0] == 1) SIGN++;
+	if (ARR[0][1][ARSX-2] == 1) SIGN++;
 	if (ARR[0][1][ARSX-1] == 1) SIGN++;
-	if (ARR[0][1][ARSX] == 1) SIGN++;
 	if (ARR[0][1][0] == 1) SIGN++;
 
 	if (SIGN < 2) ARR[1][j][i] = 0;
@@ -291,13 +291,13 @@ void CZ3View::CalcFig()
 	if (SIGN == 3) ARR[1][j][i] = 1;
 	SIGN = 0;
 
-	j = ARSY; i = 0;
-	if (ARR[0][ARSY-1][ARSX] == 1) SIGN++;	//	ARSY,0
-	if (ARR[0][ARSX-1][0] == 1) SIGN++;		//	ARSY-1,ARSX		ARSY-1,0	ARSY-1,1
-	if (ARR[0][ARSY-1][1] == 1) SIGN++;		//	ARSY,ARSX		ARSY,0		ARSY,1
-	if (ARR[0][ARSY][ARSX] == 1) SIGN++;	//	0.ARSX			0,0			0,1
-	if (ARR[0][ARSY][1] == 1) SIGN++;
-	if (ARR[0][0][ARSX] == 1) SIGN++;
+	j = ARSY-1; i = 0;
+	if (ARR[0][ARSY-2][ARSX-1] == 1) SIGN++;	//	ARSY-1,0
+	if (ARR[0][ARSY-2][0] == 1) SIGN++;			//	ARSY-2,ARSX-1		ARSY-2,0	ARSY-2,1
+	if (ARR[0][ARSY-2][1] == 1) SIGN++;			//	ARSY-1,ARSX-1		ARSY-1,0	AESX-1,1
+	if (ARR[0][ARSY-1][ARSX-1] == 1) SIGN++;	//	0.ARSX-1			0,0			0,1
+	if (ARR[0][ARSY-1][1] == 1) SIGN++;
+	if (ARR[0][0][ARSX-1] == 1) SIGN++;
 	if (ARR[0][0][0] == 1) SIGN++;
 	if (ARR[0][0][1] == 1) SIGN++;
 
@@ -307,33 +307,33 @@ void CZ3View::CalcFig()
 	if (SIGN == 3) ARR[1][j][i] = 1;
 	SIGN = 0;
 
-	j = ARSY; i = ARSX;
-	if (ARR[0][ARSY-1][ARSX-1] == 1) SIGN++;	//	ARSY,ARSX
-	if (ARR[0][ARSY-1][ARSX] == 1) SIGN++;		//	ARSV-1,ARSX-1	ARSY-1,ARSX		ARSY-1,0
-	if (ARR[0][ARSY-1][0] == 1) SIGN++;			//	ARSY,ARSX-1		ARSY,ARSX		ARSY,0
-	if (ARR[0][ARSY][ARSX-1] == 1) SIGN++;		//	0.ARSX-1		1,ARSX			0,0
-	if (ARR[0][ARSY][0] == 1) SIGN++;
+	j = ARSY-1; i = ARSX-1;
+	if (ARR[0][ARSY-2][ARSX-2] == 1) SIGN++;	//	ARSY-1,ARSX-1
+	if (ARR[0][ARSY-2][ARSX-1] == 1) SIGN++;	//	ARSV-2,ARSX-2	ARSY-2,ARSX-1		ARSY-2,0
+	if (ARR[0][ARSY-2][0] == 1) SIGN++;			//	ARSY-1,ARSX-2	ARSY-1,ARSX-1		ARSY-1,0
+	if (ARR[0][ARSY-1][ARSX-2] == 1) SIGN++;	//	0.ARSX-2		0,ARSX-1			0,0
+	if (ARR[0][ARSY-1][0] == 1) SIGN++;
+	if (ARR[0][0][ARSX-2] == 1) SIGN++;
 	if (ARR[0][0][ARSX-1] == 1) SIGN++;
-	if (ARR[0][1][ARSX] == 1) SIGN++;
-	if (ARR[0][9][0] == 1) SIGN++;
+	if (ARR[0][0][0] == 1) SIGN++;
 
 	if (SIGN < 2) ARR[1][j][i] = 0;
 	if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
 	if (SIGN > 3) ARR[1][j][i] = 0;
 	if (SIGN == 3) ARR[1][j][i] = 1;
-	SIGN = 0;*/
+	SIGN = 0;
 
 	// ќбработка граничных строк
 
-/*	for (j = 1; j < ARSY-1; j++)	// лева€ вертикаль
+	for (j = 1; j < ARSY-1; j++)	// лева€ вертикаль
 	{
 		i = 0;
-		if (ARR[0][j-1][ARSX] == 1) SIGN++;
-		if (ARR[0][j-1][1] == 1) SIGN++;
+		if (ARR[0][j-1][ARSX-1] == 1) SIGN++;
+		if (ARR[0][j-1][i] == 1) SIGN++;
 		if (ARR[0][j-1][i+1] == 1) SIGN++;
-		if (ARR[0][j][ARSX] == 1) SIGN++;
+		if (ARR[0][j][ARSX-1] == 1) SIGN++;
 		if (ARR[0][j][i+1] == 1) SIGN++;
-		if (ARR[0][j+1][ARSX] == 1) SIGN++;
+		if (ARR[0][j+1][ARSX-1] == 1) SIGN++;
 		if (ARR[0][j+1][i] == 1) SIGN++;
 		if (ARR[0][j+1][i+1] == 1) SIGN++;
 
@@ -342,11 +342,11 @@ void CZ3View::CalcFig()
 		if (SIGN > 3) ARR[1][j][i] = 0;
 		if (SIGN == 3) ARR[1][j][i] = 1;
 		SIGN = 0;
-	}*/
+	}
 
-/*	for (j = 1; j < ARSY-1; j++)	// првва€ вертикаль
+	for (j = 1; j < ARSY-1; j++)	// првва€ вертикаль
 	{
-		i = ARSX;
+		i = ARSX-1;
 		if (ARR[0][j - 1][i-1] == 1) SIGN++;
 		if (ARR[0][j - 1][i] == 1) SIGN++;
 		if (ARR[0][j - 1][0] == 1) SIGN++;
@@ -354,7 +354,7 @@ void CZ3View::CalcFig()
 		if (ARR[0][j][0] == 1) SIGN++;
 		if (ARR[0][j+1][i-1] == 1) SIGN++;
 		if (ARR[0][j+1][i] == 1) SIGN++;
-		if (ARR[0][j+1][i+1] == 1) SIGN++;
+		if (ARR[0][j+1][0] == 1) SIGN++;
 
 		if (SIGN < 2) ARR[1][j][i] = 0;
 		if (SIGN == 2) ARR[1][j][i] = ARR[0][j][i];
@@ -366,9 +366,9 @@ void CZ3View::CalcFig()
 	for (i = 1; i < ARSX-1; i++)	// верхн€€ горизонталь
 	{
 		j = 0;
-		if (ARR[0][ARSY][i - 1] == 1) SIGN++;
-		if (ARR[0][ARSY][i] == 1) SIGN++;
-		if (ARR[0][ARSY][i+1] == 1) SIGN++;
+		if (ARR[0][ARSY-1][i - 1] == 1) SIGN++;
+		if (ARR[0][ARSY-1][i] == 1) SIGN++;
+		if (ARR[0][ARSY-1][i+1] == 1) SIGN++;
 		if (ARR[0][j][i - 1] == 1) SIGN++;
 		if (ARR[0][j][i+1] == 1) SIGN++;
 		if (ARR[0][j + 1][i - 1] == 1) SIGN++;
@@ -384,7 +384,7 @@ void CZ3View::CalcFig()
 
 	for (i = 1; i < ARSX-1; i++)	// нижн€€ горизонталь
 	{
-		j = ARSY;
+		j = ARSY-1;
 		if (ARR[0][j-1][i - 1] == 1) SIGN++;
 		if (ARR[0][j-1][i] == 1) SIGN++;
 		if (ARR[0][j-1][i + 1] == 1) SIGN++;
@@ -399,7 +399,7 @@ void CZ3View::CalcFig()
 		if (SIGN > 3) ARR[1][j][i] = 0;
 		if (SIGN == 3) ARR[1][j][i] = 1;
 		SIGN = 0;
-	}*/
+	}
 
  	for (j = 0; j < ARSY; j++)
 	{
